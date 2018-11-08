@@ -1,4 +1,4 @@
-(ns registry-sync.core
+(ns schema-validator.core
   (:gen-class)
   (:require [abracad.avro :as avro]
             [clojure.tools.cli :refer [parse-opts]]

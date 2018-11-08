@@ -1,10 +1,10 @@
-(defproject com.rentpath/registry-sync "0.2.0-SNAPSHOT"
+(defproject com.rentpath/schema-validator "0.2.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "MIT"
             :url "https://github.com/rentpath/schema-validator/blob/master/LICENSE"}
-  :main registry-sync.core
-  :aot [registry-sync.core]
+  :main schema-validator.core
+  :aot [schema-validator.core]
   :uberjar-name "schema-validator.jar"
   :dependencies [[cheshire "5.8.1"]
                  [org.clojure/clojure "1.8.0"]
