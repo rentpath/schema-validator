@@ -4,7 +4,7 @@
   :license {:name "MIT"
             :url "https://github.com/rentpath/git2schemaregistry/blob/master/LICENSE"}
   :main registry-sync.core
-  :aot registry-sync.core
+  :aot [registry-sync.core]
   :uberjar-name "git2schemaregistry.jar"
   :dependencies [[cheshire "5.8.1"]
                  [org.clojure/clojure "1.8.0"]

@@ -147,14 +147,15 @@
 
 (defn validate-options
   [options]
-  (assert (:registry-url options) "must provide a --registry-url")
-  (assert (:schema-dir options) "must provide a --schema-dir"))
+  (when-not (:help options)
+    (assert (:registry-url options) "must provide a --registry-url")
+    (assert (:schema-dir options) "must provide a --schema-dir")))
 
 (defn usage
   [options-summary]
-  (->> ["compatibility - checks proposed avro schema compatibility and updates schemas"
+  (->> ["git2schemaregistry - checks and/or update proposed avro schemas"
         ""
-        "Usage: compatibiliy [options]"
+        "Usage: git2schemaregistry [options]"
         ""
         "Options:"
         options-summary
@@ -182,37 +183,3 @@
           (do
             (println "[Success] All newly proposed schemas are compatible.")
             (System/exit 0)))))))
-
-(comment
-
-  (def schemas (->> (get-all-schemas-for-subject registry-url "test")
-                    (mapv parse-schema-response)))
-
-  (def proposed-schema (avro/parse-schema (slurp "/Users/cbui/src/avro-schemas/schemas/test.json")))
-
-  (def results (.getResults (check-compatibility "backwards" proposed-schema (mapv :parsed-schema schemas))))
-
-  (.getLocation (first (.getIncompatibilities (.getResult (first results)))))
-
-  (format-results results)
-
-  (println (:message (first (format-results results))))
-
-  (def registered-schemas
-    (->> (get-all-schemas-for-subject registry-url "test")
-         (mapv parsed-schema-response)
-         (latest-schema)
-         (vector)))
-
-  (.getResults (check-compatibility "backwards" proposed-schema registered-schemas))
-
-  (parse-proposed-schema "/Users/cbui/src/avro-schemas/schemas/test.json")
-
-  (def schema-path "../schemas")
-
-  (get-compatibility (str schema-path "/listing-value.json"))
-
-  (mapv #(check-schema-compatibility "http://schema-registry.docker.localhost" %)
-        (get-proposed-schemas "../schemas"))
-
-  )
