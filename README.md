@@ -1,6 +1,6 @@
-# git2schemaregistry
+# schema-validator
 
-git2schemaregistry allows you to version avro schemas in a directory and sync them to an avro schema registry.
+schema-validator allows you to version avro schemas in a directory and sync them to an avro schema registry.
 
 It'll return nicer error messages than the registry itself when schemas aren't compatible between each other.
 
@@ -13,11 +13,11 @@ lein uberjar
 ## Usage
 
 ```
-java -jar git2schemaregistry.jar
+java -jar schema-validator.jar
 
-git2schemaregistry - checks and/or update proposed avro schemas
+schema-validator - checks and/or update proposed avro schemas
 
-Usage: git2schemaregistry [options]
+Usage: schema-validator [options]
 
 Options:
   -r, --registry-url URL  Avro schema registry url

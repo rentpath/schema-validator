@@ -2,10 +2,10 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "MIT"
-            :url "https://github.com/rentpath/git2schemaregistry/blob/master/LICENSE"}
+            :url "https://github.com/rentpath/schema-validator/blob/master/LICENSE"}
   :main registry-sync.core
   :aot [registry-sync.core]
-  :uberjar-name "git2schemaregistry.jar"
+  :uberjar-name "schema-validator.jar"
   :dependencies [[cheshire "5.8.1"]
                  [org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.cli "0.4.1"]

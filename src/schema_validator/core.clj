@@ -153,9 +153,9 @@
 
 (defn usage
   [options-summary]
-  (->> ["git2schemaregistry - checks and/or update proposed avro schemas"
+  (->> ["schema-validator - checks and/or update proposed avro schemas"
         ""
-        "Usage: git2schemaregistry [options]"
+        "Usage: schema-validator [options]"
         ""
         "Options:"
         options-summary
