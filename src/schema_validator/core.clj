@@ -20,9 +20,6 @@
    ["-d" "--schema-dir PATH" "Path to directory of schemas to update"
     :required "PATH"
     :id :schema-dir]
-   ["-u" "--update" "If set, updates the schemas after checking them. By default, we only check them."
-    :default false
-    :id :update]
    ["-h" "--help"]])
 
 (def compatibility-modes
@@ -153,7 +150,7 @@
 
 (defn usage
   [options-summary]
-  (->> ["schema-validator - checks and/or update proposed avro schemas"
+  (->> ["schema-validator - validates proposed avro schemas against a schema registry"
         ""
         "Usage: schema-validator [options]"
         ""

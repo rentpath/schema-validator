@@ -22,7 +22,6 @@ Usage: schema-validator [options]
 Options:
   -r, --registry-url URL  Avro schema registry url
   -d, --schema-dir PATH   Path to directory of schemas to update
-  -u, --update            If set, updates the schemas after checking them. By default, we only check them.
   -h, --help
 ```
 
