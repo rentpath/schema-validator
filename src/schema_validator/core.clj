@@ -24,10 +24,10 @@
 
 (def compatibility-modes
   {"none" true
-   "backwards" Compatibility$Mode/CAN_READ_LATEST
-   "backwards-transitive" Compatibility$Mode/CAN_READ_ALL
-   "forwards" Compatibility$Mode/CAN_BE_READ_BY_LATEST
-   "forwards-transitive" Compatibility$Mode/CAN_BE_READ_BY_ALL
+   "backward" Compatibility$Mode/CAN_READ_LATEST
+   "backward-transitive" Compatibility$Mode/CAN_READ_ALL
+   "forward" Compatibility$Mode/CAN_BE_READ_BY_LATEST
+   "forward-transitive" Compatibility$Mode/CAN_BE_READ_BY_ALL
    "full" Compatibility$Mode/MUTUAL_READ_WITH_LATEST
    "full-transitive" Compatibility$Mode/MUTUAL_READ_WITH_LATEST})
 
