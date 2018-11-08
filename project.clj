@@ -5,7 +5,7 @@
             :url "https://github.com/rentpath/git2schemaregistry/blob/master/LICENSE"}
   :main registry-sync.core
   :aot registry-sync.core
-  :uberjar-name "registry-sync.jar"
+  :uberjar-name "git2schemaregistry.jar"
   :dependencies [[cheshire "5.8.1"]
                  [org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.cli "0.4.1"]
