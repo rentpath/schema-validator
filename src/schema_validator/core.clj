@@ -37,10 +37,13 @@
   [schema-path]
   (let [raw-schema (slurp schema-path)
         {:keys [name compatibility]} (json/parse-string raw-schema true)]
-    (if (valid-compatibility-modes compatibility)
-      compatibility
-      (throw (ex-info (str "Invalid compatibility mode '" compatibility "' for proposed schema at " schema-path ".\n"
-                           "Must be one of " (pr-str (into [] valid-compatibility-modes))) {})))))
+    ;; We only care about compatibility mode when it is a schema value
+    ;; and not a key
+    (when (map? raw-schema)
+      (if (valid-compatibility-modes compatibility)
+        compatibility
+        (throw (ex-info (str "Invalid compatibility mode '" compatibility "' for proposed schema at " schema-path ".\n"
+                             "Must be one of " (pr-str (into [] valid-compatibility-modes))) {}))))))
 
 (defn update-schema
   [registry-url subject schema]
