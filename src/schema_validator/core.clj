@@ -114,6 +114,7 @@
 
 (defn get-filename
   [path]
+  {:pre (not (str/blank? path))}
   (-> path
       (str/split #"/")
       (last)
@@ -142,7 +143,8 @@
   (->> schema-dir-path
        (io/file)
        (file-seq)
-       (filter #(.isFile %))
+       (filter #(and (.isFile %)
+                     (str/ends-with? (str/lower-case (.getName %)) ".json")))
        (map #(.getPath %))))
 
 (defn validate-options
