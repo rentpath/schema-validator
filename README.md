@@ -20,8 +20,9 @@ schema-validator - checks and/or update proposed avro schemas
 Usage: schema-validator [options]
 
 Options:
-  -r, --registry-url URL  Avro schema registry url
-  -d, --schema-dir PATH   Path to directory of schemas to update
+  -r, --registry-url URL         Avro schema registry url
+  -d, --schema-dir PATH          Path to directory of schemas to update
+  -e, --extensions EXT    .avsc  Comma-delimited list of supported file extensions. Can optionally omit the leading dot.
   -h, --help
 ```
 
