@@ -6,7 +6,8 @@
             [clj-http.client :as http]
             [clojure.string :as str]
             [clojure.java.io :as io])
-  (:import [com.hotels.avro.compatibility Compatibility Compatibility$Mode]))
+  (:import [com.hotels.avro.compatibility Compatibility Compatibility$Mode]
+           [java.io File]))
 
 (def ^:dynamic failed false)
 
@@ -20,6 +21,12 @@
    ["-d" "--schema-dir PATH" "Path to directory of schemas to update"
     :required "PATH"
     :id :schema-dir]
+   ["-e" "--extensions EXT"
+    (str "Comma-delimited list of supported file extensions."
+         " Can optionally omit the leading dot.")
+    :required "EXT"
+    :default ".avsc"
+    :id :file-extensions]
    ["-h" "--help"]])
 
 (def compatibility-modes
@@ -114,6 +121,7 @@
 
 (defn get-filename
   [path]
+  {:pre [(not (str/blank? path))]}
   (-> path
       (str/split #"/")
       (last)
@@ -137,12 +145,33 @@
       (when-not (validate-proposed-schema registry-url compatibility-mode proposed-schema subject)
         (set-failed!)))))
 
+(defn ensure-leading-dot
+  [s]
+  (cond->> s
+    (not (str/starts-with? s ".")) (str ".")))
+
+(defn parse-file-extensions
+  "Expects `cli-arg` be a comma-delimited list of file extensions."
+  [cli-arg]
+  {:pre [(not (str/blank? cli-arg))]}
+  (let [parts (str/split cli-arg #",")]
+    (into #{}
+          (keep #(when-not (str/blank? %)
+                   (ensure-leading-dot %)))
+          parts)))
+
+(defn supported-file-extension?
+  [^File f extensions]
+  (let [fname (str/lower-case (.getName f))]
+    (and (.isFile f)
+         (some #(str/ends-with? fname %) extensions))))
+
 (defn get-proposed-schemas
-  [schema-dir-path]
+  [schema-dir-path file-extensions]
   (->> schema-dir-path
        (io/file)
        (file-seq)
-       (filter #(.isFile %))
+       (filter #(supported-file-extension? % file-extensions))
        (map #(.getPath %))))
 
 (defn validate-options
@@ -173,7 +202,8 @@
       :else
       (do
         (mapv #(check-schema-compatibility (:registry-url options) %)
-              (get-proposed-schemas (:schema-dir options)))
+              (get-proposed-schemas (:schema-dir options)
+                                    (parse-file-extensions (:file-extensions options))))
         (println)
         (if failed
           (do
